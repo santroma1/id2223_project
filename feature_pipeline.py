@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import hopsworks
 import os 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import requests
 import json
 import datetime
@@ -108,7 +108,9 @@ if __name__ == "__main__":
     # WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 
 
-
+    AIR_QUALITY_API_KEY = os.environ("AIR_QUALITY_API_KEY")
+    WEATHER_API_KEY = os.environ("WEATHER_API_KEY")
+    HOPWSORKS_API_KEY = os.environ("HOPSWORKS_API_KEY")
 
 
     df_air = get_air_df(AIR_QUALITY_API_KEY, DEFAULT_CITY, save_=False)
