@@ -96,6 +96,32 @@ def get_weather_df(api_key, city, index=0):
     df = df[WEATHER_COL_NAMES]
     df = df.rename(columns=WEATHER_COL_RENAMES)
 
+    df['tempmax'] = df["tempmax"].astype("float32")
+    df['tempmin'] = df["tempmin"].astype("float32")
+    df['temp'] = df["temp"].astype("float32")
+    df['feeslikemax'] = df["feelslikemax"].astype("float32")
+    df['feelslikemin'] = df["feelslikemin"].astype("float32")
+    df['feelslike'] = df["feelslike"].astype("float32")
+    df['dew'] = df["dew"].astype("float32")
+    df['humidity'] = df["humidity"].astype("float32")
+    df['precip'] = df["precip"].astype("float32")
+    df['precipprob'] = df["precipprob"].astype("uint32")
+    df['precipcover'] = df["precipcover"].astype("float32")
+    df['snow'] = df["snow"].astype("uint32")
+    df['snowdepth'] = df["snowdepth"].astype("uint32")
+    df['windgust'] = df["windgust"].astype("float32")
+    df['windspeed'] = df["windspeed"].astype("float32")
+    df['winddir'] = df["winddir"].astype("float32")
+    df['pressure'] = df["pressure"].astype("float32")
+    df['cloudcover'] = df["cloudcover"].astype("float32")
+    df['visibility'] = df["visibility"].astype("float32")
+    df['solarradiation'] = df["solarradiation"].astype("float32")
+    df['solarenergy'] = df["solarenergy"].astype("float32")
+    df['uvindex'] = df["uvindex"].astype("uint32")
+
+
+
+
     return df
 
 
@@ -138,7 +164,7 @@ if __name__ == "__main__":
     )
 
 
-    air_quality_fg.insert(df_air)
+    # air_quality_fg.insert(df_air)
     weather_fg.insert(df_weather)
     
 
