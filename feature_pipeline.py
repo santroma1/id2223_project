@@ -138,7 +138,7 @@ if __name__ == "__main__":
     )
 
 
-    # air_quality_fg.insert(df_air)
-    # weather_fg.insert(df_weather)
+    air_quality_fg.insert(df_air)
+    weather_fg.insert(df_weather)
     
 
