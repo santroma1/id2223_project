@@ -13,6 +13,3 @@ xgboost
 tensorflow
 joblib==1.1.0
 dataframe-image
-urllib
-codecs
-csv
