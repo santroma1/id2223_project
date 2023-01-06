@@ -4,7 +4,7 @@ name: feature-pipeline
 on:
   workflow_dispatch:
   schedule:
-    - cron: '12 05 * * *'
+    - cron: '11 15 * * *'
 
 jobs:
   test_schedule:
@@ -23,10 +23,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           
-      - name: execute python workflows from bash script
+      - name: execute python feature script
         env: 
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
           AIR_QUALITY_API_KEY: ${{ secrets.AIR_QUALITY_API_KEY }}
 
-        run: ./scripts/run-backfill-pipeline-24-hrs.sh
+        run: python feature_pipeline.py

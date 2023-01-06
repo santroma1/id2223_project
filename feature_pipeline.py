@@ -103,9 +103,9 @@ def get_weather_df(api_key, city, index=0):
 
 
 if __name__ == "__main__":
-    load_dotenv()
-    AIR_QUALITY_API_KEY = os.getenv("AIR_QUALITY_API_KEY")
-    WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
+    # load_dotenv()
+    # AIR_QUALITY_API_KEY = os.getenv("AIR_QUALITY_API_KEY")
+    # WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 
 
 
