@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # Custome
-
+.hw_api_key
 
 # Distribution / packaging
 .Python
