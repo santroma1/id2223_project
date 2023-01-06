@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Generate CSV of weather data for a city')
     parser.add_argument('-c', '--city', default='madrid', help='City to obtain the weather from')
-    parser.add_argument('-sd', '--start_date', default='2022-12-01', help='Start date to obtain the weather from')
+    parser.add_argument('-sd', '--start_date', default='2023-01-01', help='Start date to obtain the weather from')
     parser.add_argument('-ed', '--end_date', default=None, help='End date to obtain the weather from')
 
     args = parser.parse_args()
