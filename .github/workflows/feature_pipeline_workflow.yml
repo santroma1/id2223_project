@@ -4,7 +4,7 @@ name: feature-pipeline
 on:
   workflow_dispatch:
   schedule:
-    - cron: '45 10 * * *'
+    - cron: '15 11 * * *'
 
 jobs:
   test_schedule:
