@@ -105,10 +105,10 @@ def get_weather_df(api_key, city, index=0):
     df['dew'] = df["dew"].astype("float64")
     df['humidity'] = df["humidity"].astype("float64")
     df['precip'] = df["precip"].astype("float64")
-    df['precipprob'] = df["precipprob"].astype("uint32")
+    df['precipprob'] = df["precipprob"].round().astype("uint32")
     df['precipcover'] = df["precipcover"].astype("float64")
-    df['snow'] = df["snow"].astype("uint32")
-    df['snowdepth'] = df["snowdepth"].astype("uint32")
+    df['snow'] = df["snow"].round().astype("uint32")
+    df['snowdepth'] = df["snowdepth"].round().astype("uint32")
     df['windgust'] = df["windgust"].astype("float64")
     df['windspeed'] = df["windspeed"].astype("float64")
     df['winddir'] = df["winddir"].astype("float64")
@@ -117,7 +117,7 @@ def get_weather_df(api_key, city, index=0):
     df['visibility'] = df["visibility"].astype("float64")
     df['solarradiation'] = df["solarradiation"].astype("float64")
     df['solarenergy'] = df["solarenergy"].astype("float64")
-    df['uvindex'] = df["uvindex"].astype("uint32")
+    df['uvindex'] = df["uvindex"].round().astype("uint32")
 
 
 
