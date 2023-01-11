@@ -60,6 +60,8 @@ def get_air_df(api_key, city, index=0, save_=False):
     air_df.loc[index] = row
 
     air_df['iaqi_h'] = air_df['iaqi_h'].astype("float64")
+    air_df['iaqi_t'] = air_df['iaqi_t'].astype("float64")
+    air_df['iaqi_p'] = air_df['iaqi_p'].astype("float64")
 
     return air_df
 
