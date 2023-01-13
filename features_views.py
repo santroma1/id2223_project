@@ -1,5 +1,12 @@
 import hsfs
 import hopsworks
+import pandas as pd
+
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.metrics import f1_score
+
+import warnings
+warnings.filterwarnings("ignore")
 #RvLmP6cByDVIO2do.eUiPUAajvVgkNKBoBKswguvGuCb3UvWY9lnuw832q5mYKbC5eD4en9QbdsntpyDq
 
 
@@ -21,12 +28,13 @@ weather_fg = fs.get_or_create_feature_group(
     version = 1
 )
 
-query = air_quality_fg.select_all().join(weather_fg.select_all(), on=['city', 'date'])
+query = air_quality_fg.select(air_columns_names).join(weather_fg.select_all() , on=['date'])
 
-air_columns = air_quality_fg.select_all().show(5).columns
-weather_columns = weather_fg.select_all().show(5).columns
+# print(query.show(10))
+query_show = query.show(5)
+col_names = query_show.columns
 
-col_names = list(air_columns) + list(weather_columns)
+print(query_show)
 
 category_cols = ['city','date','conditions','aqi']
 mapping_transformers = {col_name:fs.get_transformation_function(name='standard_scaler') for col_name in col_names if col_name not in category_cols}
@@ -36,12 +44,14 @@ mapping_transformers.update(category_cols)
 
 feature_view = fs.create_feature_view(
     name = 'air_quality_fv',
-    version = 1,
+    version = 5,
     transformation_functions = mapping_transformers,
     query = query
 )
 
 feature_view = fs.get_feature_view(
     name = 'air_quality_fv',
-    version = 1
+    version = 5
 )
+
+
