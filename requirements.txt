@@ -11,3 +11,4 @@ Pillow
 seaborn
 joblib==1.1.0
 dataframe-image
+xgboost
