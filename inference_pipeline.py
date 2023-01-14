@@ -73,4 +73,4 @@ if __name__== "__main__":
 
     df_pred = pd.DataFrame({"date": today_date, "tomorrow_date": tomorrow_date, "pred_aqi":y_pred})
     # print(df_pred)
-    # monitor_fg.insert(df_pred)
+    monitor_fg.insert(df_pred)
