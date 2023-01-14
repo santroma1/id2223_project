@@ -11,7 +11,7 @@ fs = project.get_feature_store()
 
 
 mr = project.get_model_registry()
-model = mr.get_model("air_quality_predictions", version=2)
+model = mr.get_model("air_quality_predictions", version=4)
 model_dir = model.download()
 model = joblib.load(model_dir + "/air_quality.pkl")
 
@@ -34,8 +34,8 @@ def air_quality(input_list):
     elif res >= 200 or res <= 300:
         img_string= "aqi_black"    
         
-    passenger_url = "images"  + img_string + ".png"
-    img = Image.open(requests.get(passenger_url, stream=True).raw)            
+    img_path = "images"  + img_string + ".png"
+    img = Image.open(requests.get(img_path, stream=True).raw)            
     return img
         
 demo = gr.Interface(
