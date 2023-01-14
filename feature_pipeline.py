@@ -154,17 +154,19 @@ if __name__ == "__main__":
     # print(df_air)
     # print(df_weather)
 
+    df_weather = df_weather.drop(columns=["city"])
+
     project = hopsworks.login()
 
     fs = project.get_feature_store() 
 
     air_quality_fg = fs.get_or_create_feature_group(
         name = 'air_quality_fg',
-        version = 1
+        version = 2
     )
     weather_fg = fs.get_or_create_feature_group(
         name = 'weather_fg',
-        version = 1
+        version = 2
     )
 
 
