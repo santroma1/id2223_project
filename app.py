@@ -1,57 +1,41 @@
 import gradio as gr
-import numpy as np
 from PIL import Image
-import requests
-
 import hopsworks
-import joblib
+import datetime 
 
 project = hopsworks.login()
 fs = project.get_feature_store()
+air_fg = fs.get_or_create_feature_group(name="air_quality_predictions",
+                                            version=2,
+                                            primary_key=["date"],
+                                            description="Air quality predictions"
+                                            )
+
+air_fg = air_fg.show(20).sort_values('date', ignore_index=True)
+prediction = air_fg.iloc[-1]['pred_aqi']
+date = air_fg.iloc[-1]['date']
+date_str = datetime.date.fromtimestamp(date//1000).strftime("%Y-%m-%d")
 
 
-mr = project.get_model_registry()
-model = mr.get_model("air_quality_predictions", version=4)
-model_dir = model.download()
-model = joblib.load(model_dir + "/air_quality.pkl")
-
-
-def air_quality(input_list):
+with gr.Blocks() as demo:
     
-    
-    res = model.predict(np.asarray(input_list).reshape(1, -1)) 
-    # We add '[0]' to the result of the transformed 'res', because 'res' is a list, and we only want 
-    # the first element.
-    
-    if res == 0 or res <= 50 :
-        img_string =  "aqi_green"
-    elif res >= 50 or res <= 100:
-        img_string= "aqi_yellow"
-    elif res >= 100 or res <= 150:
-        img_string= "aqi_red"
-    elif res >= 150 or res <= 200:
-        img_string= "aqi_purple"
-    elif res >= 200 or res <= 300:
-        img_string= "aqi_black"    
+    if prediction == 0 or prediction <= 50 :
+        img_string =  "aqi_green.png"
+    elif prediction > 50 or prediction <= 100:
+        img_string= "aqi_yellow.png"
+    elif prediction > 100 or prediction <= 150:
+        img_string= "aqi_red.png"
+    elif prediction > 150 or prediction <= 200:
+        img_string= "aqi_purple.png"
+    else:
+        img_string= "aqi_black.png"    
         
-    img_path = "images"  + img_string + ".png"
-    img = Image.open(requests.get(img_path, stream=True).raw)            
-    return img
-        
-demo = gr.Interface(
-    fn=air_quality,
-    title="Air Quality Prediction",
-    description="Predict the air quality index for a given city and date.",
-    allow_flagging="False",
-    inputs=[
-        gr.inputs.Number(default=1.0, label="Cabin class (1, 2, 3)"),
-        gr.Textbox(default='male', label="Sex (male, female)"),
-        gr.inputs.Number(default=1.0, label="SibSp (number of siblings/spouses aboard)"),
-        gr.inputs.Number(default=1.0, label="Parch (number of parents/children aboard)"),
-        gr.Textbox(default="S", label="Port of Embarkation (C = Cherbourg, Q = Queenstown, S = Southampton)"),
-        gr.inputs.Number(default=1.0, label="Age"),
-        gr.Textbox(default="low", label="Fare_type (low, medium-low, medium, high)"),
-        ],
-    outputs=gr.Image(type="pil"))
+    with gr.Row():
+      with gr.Column():
+          gr.Label(f"Predicted AQI for {date_str} in Madrid is {prediction}") 
+          input_img = gr.Image("images/" + img_string, elem_id="predicted-img")            
 
-demo.launch(share=True)
+demo.launch()
+
+
+
